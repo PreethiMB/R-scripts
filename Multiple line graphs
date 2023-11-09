@@ -1,0 +1,51 @@
+####Multiple line graphs in one plot
+
+library(ggplot2)
+library(tidyverse)
+
+
+data <- read.csv("C:/Thesis/Thesis/Chapter 4/F_P_t1.csv", header=TRUE, sep = ",")
+df1 <- data.frame(data)
+
+# Method1
+
+# Create a first line
+plot(df1$ï..Window_Size, df1$For_Peat, type = "b", pch = 19, 
+     col = "red", xlab = "x", ylab = "y")
+# Add a second line
+lines(df1$ï..Window_Size, df1$For_Grass, pch = 18, col = "blue", type = "b", lty = 2)
+# Add a legend to the plot
+legend("topleft", legend=c("Forest_Peatland", "Forest_Grassland"),
+       col=c("red", "blue"), lty = 1:2, cex=0.8)
+
+# Method 2
+
+ggplot(df1, aes(x=ï..Window_Size)) +
+ geom_line(aes(y = For_Peat), color = "darkred", group=1)+
+  geom_line(aes(y = For_Grass), color="steelblue") +
+  scale_color_manual(values = c("darkred", "steelblue"))
+
+# Method 3
+
+df <- data %>%
+  select(ï..Window_Size, Forest_Grassland, Forest_Peatland, Forest_Cropland, Forest_Water) %>%
+  gather(key = "variable", value = "value", -ï..Window_Size)
+head(df)
+
+p <- ggplot(df, aes(x = ï..Window_Size, y = value)) +
+  geom_line(aes(color = variable, linetype = variable)) + 
+  scale_color_manual(values = c("red", "steelblue", "orange", "green"))+
+  scale_linetype_manual(values = rep(c('solid'),4))+
+  geom_point()
+
+
+q<- p+ scale_x_continuous(breaks=seq(3, 19, 2), limits=c(3, 19))
+
+q+ ggtitle("TD Distance vs Texture Window Size") +
+  xlab("Window_Size") + ylab("TD_Distance")
+  
+  
+#theme(legend.text = element_text(colour="blue", size=10, face="bold"))
+
+
+
