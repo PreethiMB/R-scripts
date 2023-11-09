@@ -1,0 +1,11 @@
+##Create boxplots
+
+##Read the csv file
+mydata <- read.csv("F:/Backup_PhD/Thesis/CHapter 5/boxplots_allareas.csv")
+
+boxplot(mydata$Area1, mydata$Area2, mydata$Area3, col=c("green", "red", "cyan"), names=c("A1", "A2", "A3"), main = "Forest Profiles", xlab="Study Areas", ylab="BSindB")
+
+png("F:/Backup_PhD/Thesis/CHapter 5/profiles_forests.png")
+myplot <- boxplot(mydata$Area1, mydata$Area2, mydata$Area3, col=c("green", "red", "cyan"), names=c("A1", "A2", "A3"), main = "Forest Profiles", xlab="Study Areas", ylab="BSindB")
+
+dev.off()
