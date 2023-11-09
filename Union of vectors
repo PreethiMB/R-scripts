@@ -1,0 +1,25 @@
+##To generate Union of vectors
+
+
+library(rgdal)
+library(rgeos)
+library(sp)
+
+#l1 <- "E:/Backup_PhD/Ground truth_Coillte/DATA/Fell_2007_area1.shp"
+l2 <- "E:/Backup_PhD/Ground truth_Coillte/DATA/Fell_2008_area1.shp"
+l3 <- "E:/Backup_PhD/Ground truth_Coillte/DATA/Fell_2009_area1.shp"
+l4 <- "E:/Backup_PhD/Results_final/Analysis/Fell_2010_area1_shapefile2.shp"
+td <- "E:/Backup_PhD/Ground truth_Coillte/DATA/"
+
+
+#l1 <- readOGR(l1)
+l2 <- readOGR(l2)
+l3 <- readOGR(l3)
+l4 <- readOGR(l4)
+
+u <- union(l2,union(l3,l4))
+#u2 <- union(u,l4)
+
+
+writeOGR(u, dsn="E:/Backup_PhD/Ground truth_Coillte/DATA/COillte_union080910_new.shp", layer="COillte_union080910_new", driver = "ESRI Shapefile")
+plot(u2)
