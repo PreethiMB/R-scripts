@@ -1,0 +1,25 @@
+####Plot shaded graphs with standard deviation lower and upper bounds
+
+library(ggplot2)
+
+data <- read.csv("C:/Thesis/Thesis/Chapter 4/F_P_t1.csv", header=TRUE, sep = ",")
+
+df1 <- data.frame(data)
+
+p<-ggplot(data=df1, aes(x=ï..Window_Size, y=TD_Distance, colour = TD_Distance)) + geom_line() + geom_point(size=3)
+p<-p+geom_ribbon(aes(ymin=data$Lower, ymax=data$Upper), linetype=2, alpha=0.1)
+
+plot(p)
+
+##new plot with error bars
+
+
+#pd <- position_dodge(1.0)
+data <- read.csv("F:/Backup_PhD/Thesis/CHapter 5/trial3.csv", header=TRUE, sep = ",")
+
+df1 <- data.frame(data)
+
+p<-ggplot(data=df1, aes(x=Cluster, y=HV_dB, colour = Cluster)) + geom_line() + geom_point(size=5)
+#plot(p)
+q<-p+geom_errorbar(aes(ymin=data$Lower, ymax=data$Upper), colour="black", width=.1)
+plot(q)
