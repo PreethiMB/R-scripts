@@ -1,0 +1,44 @@
+###To extract pixel values from shapefile
+
+library(raster)
+library(rgdal)
+library(sp)
+image_cork <- raster("C:/Users/Admin/Documents/QGIS/clip_alos2.tif")
+image_wick <- raster("C:/Users/Admin/Documents/QGIS/clip_wick.tif")
+image_don <- raster("C:/Users/Admin/Documents/QGIS/clip_don.tif")
+poly_cork <- shapefile ("C:/Users/Admin/Documents/QGIS/poly.shp")
+poly_wick <- shapefile ("C:/Users/Admin/Documents/QGIS/ext_wick.shp")
+poly_don <- shapefile ("C:/Users/Admin/Documents/QGIS/ext_don.shp")
+val <- extract(x=image,y=poly$Ext, df=TRUE)
+
+##To get only urban polygons
+urban_wick <- poly_wick[poly_wick$ext == "3", ]
+urban_wicklow <- extract(x=image_wick, y=urban_wick, df = TRUE)
+
+urban_don <- poly_don[poly_don$ext == "3", ]
+urabn_donegal <- extract(x=image_don, y=urban_don, df = TRUE)
+
+urban_cork <- poly_cork[poly_cork$Ext == "3", ]
+urban_cork <- extract(x=image_cork, y=urban_cork, df = TRUE)
+
+
+#To get only forest polygons
+forest_cork <- poly_cork[poly_cork$Ext == "1", ]
+forest_cork <- extract(x=image_cork, y=forest_cork, df = TRUE)
+
+forest_don <- poly_don[poly_don$ext == "1", ]
+forest_donegal <- extract(x=image_don, y=forest_don, df = TRUE)
+
+forest_wick <- poly_wick[poly_wick$ext == "1", ]
+forest_wicklow <- extract(x=image_wick, y=forest_wick, df = TRUE)
+
+#to get the other nf polygons
+cork <- poly_cork[poly_cork$id == "1", ]
+extcork <- extract(x=image_cork, y=cork, df = TRUE)
+
+
+nf_wick <- poly_wick[poly_wick$ext == "2", ]
+wick_nf <- extract(x=image_wick, y=nf_wick, df = TRUE)
+
+
+write.csv(extcork, file = "C:/Users/Admin/Documents/QGIS/cork_alos2hv.csv")
