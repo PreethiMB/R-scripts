@@ -1,0 +1,24 @@
+####Script to create Dendrograms. Dendrogram is a diagram to show hierarhical relationships between clusters. This diagram was used to help in grouping clusters from an unsupervised clustering algorithm.
+
+#Step1: Read the csv file
+data1 <- read.csv("C:\\Users\\Admin\\Documents\\Preethi_Projects\\PhD\\Cork_Dendrfile.csv", row.names=1, header=T)
+
+#Step2: Convert the csv into a matrix
+n <- as.matrix(data1)
+
+#Step3: Calculate Euclidean distance between clusters
+dist(as.matrix(data7))
+
+#Step4: 
+b <- dist(as.matrix(data7))
+
+#Step5: Initiate the hierarchical clustering
+hc <- hclust(b)
+
+#Step6: Build the dendrogram
+dendr <- dendro_data(hc, type="rectangle")
+
+#Step7: Plot the dendrogram
+ggplot() + 
+  geom_segment(data=segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
+  geom_text(data=label(dendr), aes(x=x, y=y, label=label, vjust = 1.6), size=2)
