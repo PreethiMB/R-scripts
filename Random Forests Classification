@@ -5,6 +5,8 @@
 #using the randomforests library. A confusion matrix is created from which PA, UA and OA are derived.
 #A variable importance plot is also generated to see the most important variables.
 #The classfied output is then exported as a tiff file and can be visualised in QGIS
+#Special thanks to Ned Horning (Director of Applied Biodiversity Informatics) fore helping me with the code and 
+#answering all my questions related to machine learning classifiers
 
 ###############################Set libraries############################################################
 library(raster)
